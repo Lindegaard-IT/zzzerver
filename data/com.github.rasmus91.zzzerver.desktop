@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=zZzerver
+GenericName=zZzerver
+Comment=Client controls for your sleepy server!
+Categories=System;Development;
+Exec=com.github.rasmus91.zzzerver
+Icon=application-default-icon
+Terminal=false
+Type=Application
+Keywords=server;zzz;sleepy;

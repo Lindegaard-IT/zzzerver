@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 Your Name <you@email.com> -->
+<component type="desktop">
+  <id>com.github.rasmus91.zzzserver</id>
+  <metadata_license>CC0</metadata_license>
+  <name>zZzerver</name>
+  <summary>Manage your sleepy server!</summary>
+  <description>
+    <p>zZzserver is a client tool that builds on ssh, wireguard and Wake-On-LAN to manage your development, streaming, gaming or whatever else-server. It lets you wake it on a single click, and lets powerdown when you are not using it!
+
+For inspiration on what to do with this tool, and guides to get started, check out: [insert link]
+.</p>
+  </description>
+</component>
