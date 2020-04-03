@@ -1,3 +1,5 @@
+//zZzerver: The simple server management client
+//    Copyright (C) 2020  Rasmus Lindegaard
 
 namespace ZzzServer.Models{
 

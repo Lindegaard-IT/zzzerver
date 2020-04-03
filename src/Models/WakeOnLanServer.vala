@@ -1,3 +1,6 @@
+//zZzerver: The simple server management client
+//    Copyright (C) 2020  Rasmus Lindegaard
+
 using ZzzServer.Services.WakeOnLan;
 
 namespace ZzzServer.Models{
