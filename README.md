@@ -1,3 +1,3 @@
-# zzzerver
+# zZzerver
 
 Description coming soon...
