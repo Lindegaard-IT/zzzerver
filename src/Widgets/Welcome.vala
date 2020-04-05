@@ -11,7 +11,7 @@ namespace ZzzServer.Widgets{
             var welcome = new Granite.Widgets.Welcome("zZzerver Client", "It seems you have not configured any server yet...");
 
             //Option to add a sever configuration
-            welcome.append("network-server-symbolic", "Add a server", "Setup a sleepy server and network access node." );
+            welcome.append("network-server-symbolic", "Add a server", "Setup a sleepy server." );
 
             welcome.append("help-contents", "Help", "If you are unsure about how to get started, there are resources available here");
             base.add(welcome);

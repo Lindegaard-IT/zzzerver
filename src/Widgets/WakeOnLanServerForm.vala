@@ -55,17 +55,14 @@ namespace ZzzServer.Widgets {
 
         }
 
-        public IServer get_server_info(){
-
-            var server_details = new WakeOnLanServer.with_data(
-                new SshWakeOnLanService(),
-                this.name.text,
+        protected override WakeOnLanServer get_server(){
+            return new WakeOnLanServer.with_data(
+                new Services.WakeOnLan.SshWakeOnLanService(),
                 this.address.text,
-                "",
-                this.mac.text
+                this.name.text,
+                this.mac.text,
+                ""
             );
-
-            return server_details;
         }
 
     }
