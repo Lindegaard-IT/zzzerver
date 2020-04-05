@@ -3,7 +3,7 @@
 
 namespace ZzzServer.Widgets{
 
-    public abstract class AbstractServerForm<T> : Gtk.Grid, IServerForm<T>{
+    public abstract class AbstractServerForm<T> : Gtk.Paned, IServerForm<T>{
 
         protected bool editing;
         protected Gtk.Grid form;
@@ -11,18 +11,13 @@ namespace ZzzServer.Widgets{
         protected Gtk.Button cancel_button;
 
         public AbstractServerForm(bool editing = false){
-            /*Object(
-                orientation: Gtk.Orientation.VERTICAL,
-                spacing: 30,
-                baseline_position: Gtk.BaselinePosition.CENTER
-            );*/
+            Object(
+                orientation: Gtk.Orientation.VERTICAL
+            );
             this.submit_button.add(new Gtk.Label(editing ? "Create" : "Save"));
         }
 
         construct{
-
-            base.set_row_spacing(10);
-            base.set_column_spacing(10);
 
             this.form = new Gtk.Grid();
             this.form.set_row_spacing(15);
@@ -31,29 +26,40 @@ namespace ZzzServer.Widgets{
 
             //var scroller = new Gtk.ScrolledWindow(null, null);
             //scroller.add(this.form);
-            //scroller.halign = Gtk.Align.CENTER;
 
-            var scroll_container = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
-            scroll_container.pack_start(this.form, true, true);
-            scroll_container.halign = Gtk.Align.CENTER;
+            var centerer = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 10);
+            centerer.set_hexpand(true);
 
-            //var button_container = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 20);
+            var vcenter = new Gtk.Box(Gtk.Orientation.VERTICAL, 0);
+            vcenter.set_center_widget(this.form);
 
+            centerer.set_center_widget(vcenter);
+
+            var view = new Gtk.Viewport(null, null);
+            view.add(centerer);
+
+            var button_container = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 20);
 
             this.cancel_button = new Gtk.Button.with_label("Cancel");
             this.cancel_button.valign = Gtk.Align.CENTER;
+            this.cancel_button.clicked.connect(() => { cancel(); });
+
             this.submit_button = new Gtk.Button();
             this.submit_button.get_style_context().add_class("suggested-action");
-            //button_container.pack_start(this.cancel_button, false, true, 0);
-            //button_container.pack_end(this.submit_button, false, true, 0);
+            this.submit_button.valign = Gtk.Align.CENTER;
+            this.submit_button.clicked.connect(() => {
+                var server_instance = get_server();
+                submit(server_instance);
+            });
 
-            var separator = new Gtk.Separator(Gtk.Orientation.HORIZONTAL);
+            button_container.pack_start(this.cancel_button, false, false, 20);
+            button_container.pack_end(this.submit_button, false,false, 20);
 
-            base.attach(scroll_container, 0, 0, 28, 32);
-            base.attach_next_to(separator, scroll_container, Gtk.PositionType.BOTTOM, 28);
-            base.attach(this.cancel_button, 4, 34);
-            base.attach(this.submit_button, 20, 34);
+            base.pack1(view, false, false);
+            base.pack2(button_container, false, false);
         }
+
+        protected abstract T get_server();
 
     }
 

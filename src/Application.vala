@@ -17,7 +17,7 @@ namespace ZzzServer{
         protected override void activate(){
             var main_window = new Gtk.ApplicationWindow (this);
             main_window.default_height = 400;
-            main_window.default_width = 600;
+            main_window.default_width = 350;
             main_window.title = "zZzerver";
 
             //use custom titblebar
@@ -34,7 +34,13 @@ namespace ZzzServer{
 
 
             welcome.create_server_clicked.connect(() => {
-                history.sub_page = new WakeOnLanServerForm();
+                var wolserver = new WakeOnLanServerForm();
+                wolserver.cancel.connect(history.back);
+                wolserver.submit.connect((server) => {
+                    message(server.nickname);
+                    history.back();
+                });
+                history.sub_page = wolserver;
             });
 
             history.add(welcome);
