@@ -10,7 +10,8 @@ gnome = import('gnome')
 dependencies = [
     dependency('gtk+-3.0'),
     dependency('granite'),
-    dependency('gio-2.0') #Gio is needed for use of async and yield
+    dependency('gio-2.0'), #Gio is needed for use of async and yield
+    dependency('gee-0.8')
 ]
 
 # 'compile' resources
@@ -22,11 +23,22 @@ zzzerver_resources = gnome.compile_resources(
 
 # source files:
 
-models = [
-    'src/Models/IServer.vala',
-    'src/Models/ServerStatus.vala',
-    'src/Models/WakeOnLanServer.vala'
-]
+    # Models
+            #Observables
+            observables = [
+                #'src/Models/ObservableCollections/IObservableBase.vala',
+                'src/Models/ObservableCollections/IObservableCollection.vala',
+                'src/Models/ObservableCollections/IObservableList.vala',
+                'src/Models/ObservableCollections/ObservableCollection.vala',
+                'src/Models/ObservableCollections/ObservableList.vala'
+            ]
+
+        models = [
+            'src/Models/IServer.vala',
+            'src/Models/ServerStatus.vala',
+            'src/Models/WakeOnLanServer.vala',
+            observables
+        ]
 
 services = [
     'src/Services/WakeOnLan/IWakeOnLanService.vala',
@@ -39,6 +51,8 @@ widgets = [
     'src/Widgets/HistoryStack.vala',
     'src/Widgets/IServerForm.vala',
     #'src/Widgets/ServerDialog.vala',
+    'src/Widgets/Main/DefaultServerRow.vala',
+    'src/Widgets/ServerStatusIndicator.vala',
     'src/Widgets/WakeOnLanServerForm.vala',
     'src/Widgets/Welcome.vala'
 ]
