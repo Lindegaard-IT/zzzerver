@@ -26,7 +26,7 @@ zzzerver_resources = gnome.compile_resources(
     # Models
             #Observables
             observables = [
-                #'src/Models/ObservableCollections/IObservableBase.vala',
+                'src/Models/ObservableCollections/IObservableBase.vala',
                 'src/Models/ObservableCollections/IObservableCollection.vala',
                 'src/Models/ObservableCollections/IObservableList.vala',
                 'src/Models/ObservableCollections/ObservableCollection.vala',

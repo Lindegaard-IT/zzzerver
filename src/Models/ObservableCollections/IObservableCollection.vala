@@ -5,13 +5,7 @@ namespace ZzzServer.Models.ObservableCollections{
 
     public delegate IObservableCollection<T> wrap_collection<T>(Gee.Collection<T> collection);
 
-    public interface IObservableCollection<T> : Gee.Collection<T>{
-
-        public signal void added(T item);
-        public signal void removed(T item);
-        public signal void cleared();
-
-        internal abstract Gee.Collection<T> source { get; }
+    public interface IObservableCollection<T> : IObservableBase<T, Gee.Collection<T>>, Gee.Collection<T>{
 
         public static wrap_collection<T> wrapper;
         public static IObservableCollection<T> wrap_collection<T>(Gee.Collection<T> collection){

@@ -3,7 +3,7 @@
 
 namespace ZzzServer.Models.ObservableCollections{
 
-    public class ObservableList<T> : IObservableCollection<T>, IObservableList<T>, Gee.AbstractList<T>{
+    public class ObservableList<T> : IObservableBase<T, Gee.List<T>>, IObservableList<T>, Gee.AbstractList<T>{
 
         protected Gee.List<T> list;
 

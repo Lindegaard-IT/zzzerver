@@ -5,7 +5,7 @@ namespace ZzzServer.Models.ObservableCollections{
 
     public delegate IObservableList<T> wrap_list<T>(Gee.List<T> list);
 
-    public interface IObservableList<T> : IObservableCollection<T>, Gee.List<T>{
+    public interface IObservableList<T> : IObservableBase<T, Gee.List<T>>, Gee.List<T>{
 
         internal abstract Gee.List<T> source { get; }
 
