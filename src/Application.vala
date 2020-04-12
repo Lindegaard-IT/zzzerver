@@ -7,6 +7,8 @@ namespace ZzzServer{
 
     public class Client : Gtk.Application{
 
+        private ListStore servers;//Gee.List<Models.IServer> servers;
+
         public Client(){
             Object(
                 application_id: "com.github.rasmus91.zzzerver",
@@ -23,7 +25,9 @@ namespace ZzzServer{
             //use custom titblebar
             var header = new HeaderBar();
             main_window.set_titlebar(header);
-            
+
+            //Primary view
+            var prim_view = new Widgets.Main.DefaultMainView(this.servers);
 
             //create historystack
             var history = new HistoryStack();
@@ -32,21 +36,24 @@ namespace ZzzServer{
 
             var welcome = new Widgets.Welcome();
 
-
             welcome.create_server_clicked.connect(() => {
                 var wolserver = new WakeOnLanServerForm();
                 wolserver.cancel.connect(history.back);
                 wolserver.submit.connect((server) => {
-                    message(server.nickname);
+                    this.servers.append(server);
                     history.back();
+                    history.add(prim_view);
+                    history.visible_child = prim_view;
                 });
                 history.sub_page = wolserver;
             });
+
 
             history.add(welcome);
             history.visible_child = welcome;
             //add interface objects
             main_window.add(history);
+
             //Show all widgets
             main_window.show_all();
             header.back_button.visible = false;
@@ -54,6 +61,10 @@ namespace ZzzServer{
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("com/github/rasmus91/zzzerver/Application.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        }
+
+        construct{
+            this.servers = new ListStore(typeof(Models.IServer));//new Gee.ArrayList<Models.IServer>();
         }
 
         protected void configure_css(){

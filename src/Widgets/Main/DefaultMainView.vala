@@ -9,18 +9,29 @@ namespace ZzzServer.Widgets.Main{
 
     public class DefaultMainView : Gtk.Box{
 
-        protected Gtk.ListBox server_rows;
+        private Gtk.ListBox server_rows;
 
-        public DefaultMainView(Gee.List<IServer> source){
+        public DefaultMainView(ListModel list){
             Object(
                 orientation: Gtk.Orientation.VERTICAL,
                 spacing: 0
             );
+
+            this.server_rows.bind_model(
+                list, 
+                (item) => {
+                    var server = (IServer) item;
+                    return new DefaultServerRow(server);
+            });
+
+
+            base.show_all();
         }
 
         construct{
 
-            
+            this.server_rows = new Gtk.ListBox();
+            base.pack_start(this.server_rows, true, true);
 
         }
 

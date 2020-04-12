@@ -23,7 +23,7 @@ namespace ZzzServer.Widgets.Main{
             this.label.label = server.nickname;
             this.indicator.state = server.status;
             this.server.status_changed.connect(update_indicator);
-
+            base.show_all();
         }
 
         construct{

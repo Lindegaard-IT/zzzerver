@@ -52,6 +52,7 @@ widgets = [
     'src/Widgets/IServerForm.vala',
     #'src/Widgets/ServerDialog.vala',
     'src/Widgets/Main/DefaultServerRow.vala',
+    'src/Widgets/Main/DefaultMainView.vala',
     'src/Widgets/ServerStatusIndicator.vala',
     'src/Widgets/WakeOnLanServerForm.vala',
     'src/Widgets/Welcome.vala'
