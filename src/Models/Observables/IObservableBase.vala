@@ -1,7 +1,7 @@
 //zZzerver: The simple server management client
 //    Copyright (C) 2020  Rasmus Lindegaard
 
-namespace ZzzServer.Models.ObservableCollections{
+namespace ZzzServer.Models.Observables{
 
     //T should be the type of item held in the collection
     //G should be the type of collection/datastructure underlying the observable

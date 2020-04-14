@@ -1,7 +1,7 @@
 //zZzerver: The simple server management client
 //    Copyright (C) 2020  Rasmus Lindegaard
 
-namespace ZzzServer.Models.ObservableCollections{
+namespace ZzzServer.Models.Observables{
 
     public delegate IObservableCollection<T> wrap_collection<T>(Gee.Collection<T> collection);
 

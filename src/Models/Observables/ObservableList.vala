@@ -1,7 +1,7 @@
 //zZzerver: The simple server management client
 //    Copyright (C) 2020  Rasmus Lindegaard
 
-namespace ZzzServer.Models.ObservableCollections{
+namespace ZzzServer.Models.Observables{
 
     public class ObservableList<T> : IObservableBase<T, Gee.List<T>>, IObservableList<T>, Gee.AbstractList<T>{
 
