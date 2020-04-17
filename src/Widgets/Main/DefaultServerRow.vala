@@ -33,8 +33,8 @@ namespace ZzzServer.Widgets.Main{
 
         construct{
 
-            base.column_spacing = 15;
-            base.row_spacing = 5;
+            base.set_column_spacing(15);
+            base.set_row_spacing(5);
 
             this.label = new Gtk.Label("");
             this.label.get_style_context().add_class("server-row-header");
@@ -49,10 +49,10 @@ namespace ZzzServer.Widgets.Main{
             //switch_box.add(this.keep_alive);
             //switch_box.baseline_position = Gtk.BaselinePosition.CENTER;
 
-            base.attach(this.label, 0, 0, 12, 3);
-            base.attach(new Gtk.Label("Keep Alive"), 3,5);
-            base.attach(this.keep_alive, 3, 6);
-            base.attach(this.indicator, 9, 5);
+            base.attach(this.label, 0, 0, 20, 3);
+            base.attach(new Gtk.Label("Keep Alive"), 4,4);
+            base.attach(this.keep_alive, 5, 4, 3, 1);
+            base.attach(this.indicator, 18, 4);
 
             /*base.pack_start(this.label, true, true);
             base.add(switch_box);

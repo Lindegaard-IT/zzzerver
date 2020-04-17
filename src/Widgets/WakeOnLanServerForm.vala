@@ -17,6 +17,20 @@ namespace ZzzServer.Widgets {
         protected Gtk.Entry mac;
         protected Gtk.ComboBox wireguard_interfaces;
 
+        public override WakeOnLanServer server {
+            set{
+                if(value != null){
+                    this.address.text = value.address;
+                    this.name.text = value.nickname;
+                    this.mac.text = value.mac;
+                }else{
+                    this.address.text = "";
+                    this.name.text = "";
+                    this.mac.text = "";
+                }
+            }
+        }
+
         public WakeOnLanServerForm(){
             base(false);
         }

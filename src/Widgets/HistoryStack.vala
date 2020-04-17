@@ -7,7 +7,7 @@ namespace ZzzServer.Widgets{
 
     public class HistoryStack : Gtk.Stack {
 
-        public Gtk.Widget _sub_page;
+        protected Gtk.Widget _sub_page;
         public Gtk.Widget sub_page { 
             get{
                 return this._sub_page;
@@ -17,13 +17,37 @@ namespace ZzzServer.Widgets{
                     base.remove(this._sub_page);
                     this._sub_page = null;
                 }else if(value != visible_child){
-                    this.previous.add(this.visible_child);
+                    if(visible_child != this.base_page){
+                        this.previous.add(this.visible_child);
+                    }
                     this._sub_page = value;
-                    add(this._sub_page);
+                    base.add(this._sub_page);
                     this.sub_page.show_all();//base.show_all();
                     visible_child = this._sub_page;
                     this.back_button.show();
                 }
+            }
+        }
+
+        private Gtk.Widget _base_page;
+        public Gtk.Widget base_page { 
+            get{
+                return this._base_page;
+            }
+            set{
+                if(value != this._base_page){
+                    base.add(value);
+                    if(this._base_page != null){
+                        if(visible_child == this._base_page){
+                            base.transition_type = Gtk.StackTransitionType.CROSSFADE;
+                        }
+
+                        base.remove(this._base_page);
+                    }
+                }
+                this._base_page = value;
+                base.visible_child = value;
+                base.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             }
         }
 
@@ -46,15 +70,21 @@ namespace ZzzServer.Widgets{
 
         public void back(){
 
-            var prev_widget = this.previous.last();
-            this.previous.remove(prev_widget);
+            Gtk.Widget prev_widget;
+            if(this.previous.size > 0){
+                prev_widget = this.previous.last();
+                this.previous.remove(prev_widget);
+            }else{
+                this.back_button.hide();
+                prev_widget = this.base_page;
+            }
 
             var current_widget = visible_child;
 
+            this._sub_page = prev_widget;
             base.set_visible_child(prev_widget);
-            this.sub_page = null;
-            if(this.previous.size == 0)
-                this.back_button.visible = false;
+
+            base.remove(current_widget);
         }
 
 

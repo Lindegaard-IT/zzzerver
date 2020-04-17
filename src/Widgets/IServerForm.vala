@@ -5,8 +5,10 @@ namespace ZzzServer.Widgets{
 
     public interface IServerForm<T> : Gtk.Widget{
 
-        public signal void submit(T server);
+        public signal void submit(Models.IServer server);
         public signal void cancel();
+
+        public abstract T server { set; }
 
     }
 

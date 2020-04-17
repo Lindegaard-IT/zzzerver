@@ -10,6 +10,8 @@ namespace ZzzServer.Widgets{
         protected Gtk.Button submit_button;
         protected Gtk.Button cancel_button;
 
+        public virtual T server { set; }
+
         public AbstractServerForm(bool editing = false){
             Object(
                 orientation: Gtk.Orientation.VERTICAL
@@ -49,7 +51,7 @@ namespace ZzzServer.Widgets{
             this.submit_button.valign = Gtk.Align.CENTER;
             this.submit_button.clicked.connect(() => {
                 var server_instance = get_server();
-                submit(server_instance);
+                submit((Models.IServer)server_instance);
             });
 
             button_container.pack_start(this.cancel_button, false, false, 20);

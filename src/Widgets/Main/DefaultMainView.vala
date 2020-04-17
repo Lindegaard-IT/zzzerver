@@ -23,7 +23,13 @@ namespace ZzzServer.Widgets.Main{
                 list, 
                 (item) => {
                     var server = (IServer) item;
-                    return new DefaultServerRow(server);
+                    var row = new Gtk.ListBoxRow();
+                    row.add(new DefaultServerRow(server));
+                    row.activatable = true;
+                    row.activate.connect(() => {
+                        server_clicked(server);
+                    });
+                    return row;
             });
 
 
@@ -33,7 +39,7 @@ namespace ZzzServer.Widgets.Main{
         construct{
 
             this.server_rows = new Gtk.ListBox();
-            this.server_rows.selection_mode = Gtk.SelectionMode.NONE;
+            this.server_rows.selection_mode = Gtk.SelectionMode.SINGLE;
             base.pack_start(this.server_rows, true, true);
 
         }

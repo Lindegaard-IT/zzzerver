@@ -7,7 +7,12 @@
 }
 
 .server-row-header{
-    font-size: 1.2em;
+    font-size: 1.4em;
     font-weight: bold;
 }
 
+.window-title{
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #666666;
+}

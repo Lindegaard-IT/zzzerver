@@ -41,16 +41,14 @@ namespace ZzzServer{
                 wolserver.cancel.connect(history.back);
                 wolserver.submit.connect((server) => {
                     this.servers.append(server);
+                    history.base_page = prim_view;
                     history.back();
-                    history.add(prim_view);
-                    history.visible_child = prim_view;
                 });
                 history.sub_page = wolserver;
             });
 
 
-            history.add(welcome);
-            history.visible_child = welcome;
+            history.base_page = welcome;
             //add interface objects
             main_window.add(history);
 
