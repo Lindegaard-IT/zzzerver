@@ -40,6 +40,15 @@ zzzerver_resources = gnome.compile_resources(
             observables
         ]
 
+    #Utilities
+        factories = [
+            'src/Utility/Factories/ServerFormFactory.vala'
+        ]
+
+    utility = [
+        factories
+    ]
+
 services = [
     'src/Services/WakeOnLan/IWakeOnLanService.vala',
     'src/Services/WakeOnLan/SshWakeOnLanService.vala'
@@ -63,7 +72,8 @@ source_files = [
     'src/Application.vala',
     models,
     services,
-    widgets
+    widgets,
+    utility
 
 ]
 

@@ -25,7 +25,7 @@ namespace ZzzServer.Widgets{
                 custom_title: new Gtk.Label("zZzerver"),
                 show_close_button: true
             );
-            custom_title.get_style_context().add_class("window-title");
+            custom_title.get_style_context().add_class(Granite.STYLE_CLASS_H4_LABEL);
 
         }
 

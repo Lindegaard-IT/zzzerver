@@ -12,33 +12,21 @@ namespace ZzzServer.Widgets {
 
     public class WakeOnLanServerForm : AbstractServerForm<WakeOnLanServer> {
 
-        protected Gtk.Entry name;
+        protected Gtk.Entry nickname;
         protected Gtk.Entry address;
         protected Gtk.Entry mac;
         protected Gtk.ComboBox wireguard_interfaces;
 
-        public override WakeOnLanServer server {
-            set{
-                if(value != null){
-                    this.address.text = value.address;
-                    this.name.text = value.nickname;
-                    this.mac.text = value.mac;
-                }else{
-                    this.address.text = "";
-                    this.name.text = "";
-                    this.mac.text = "";
-                }
-            }
-        }
+        public override WakeOnLanServer server { get; set; }
 
         public WakeOnLanServerForm(){
-            base(false);
+            base(true);
         }
 
         construct{
 
-            this.name = new Gtk.Entry();
-            this.name.placeholder_text = "Home Server";
+            this.nickname = new Gtk.Entry();
+            this.nickname.placeholder_text = "Home Server";
 
             this.address = new Gtk.Entry();
             this.address.placeholder_text = "10.0.0.1";
@@ -51,8 +39,8 @@ namespace ZzzServer.Widgets {
             var server_name_lbl = new Gtk.Label("Name:");
             server_name_lbl.halign = Gtk.Align.END;
 
-            this.form.attach(this.name, 0, 0);
-            this.form.attach_next_to(server_name_lbl, this.name, Gtk.PositionType.LEFT);
+            this.form.attach(this.nickname, 0, 0);
+            this.form.attach_next_to(server_name_lbl, this.nickname, Gtk.PositionType.LEFT);
 
             var address_lbl = new Gtk.Label("Address or URL:");
             address_lbl.halign = Gtk.Align.END;
@@ -69,14 +57,22 @@ namespace ZzzServer.Widgets {
 
         }
 
-        protected override WakeOnLanServer get_server(){
+        protected override WakeOnLanServer build_server(){
             return new WakeOnLanServer.with_data(
                 new Services.WakeOnLan.SshWakeOnLanService(),
                 this.address.text,
-                this.name.text,
+                this.nickname.text,
                 this.mac.text,
                 ""
             );
+        }
+
+        protected override void edit(WakeOnLanServer server){
+
+            this.address.text = server.address;
+            this.nickname.text = server.nickname;
+            this.mac.text = server.mac;
+            this.form.show_all();
         }
 
     }

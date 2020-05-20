@@ -10,13 +10,12 @@ namespace ZzzServer.Widgets{
         protected Gtk.Button submit_button;
         protected Gtk.Button cancel_button;
 
-        public virtual T server { set; }
+        public abstract T server { get; set; }
 
         public AbstractServerForm(bool editing = false){
             Object(
                 orientation: Gtk.Orientation.VERTICAL
             );
-            this.submit_button.add(new Gtk.Label(editing ? "Create" : "Save"));
         }
 
         construct{
@@ -25,6 +24,9 @@ namespace ZzzServer.Widgets{
             this.form.set_row_spacing(15);
             this.form.set_column_spacing(5);
 
+            notify["server"].connect((obj) => {
+                edit(server);
+            });
 
             //var scroller = new Gtk.ScrolledWindow(null, null);
             //scroller.add(this.form);
@@ -46,11 +48,13 @@ namespace ZzzServer.Widgets{
             this.cancel_button.valign = Gtk.Align.CENTER;
             this.cancel_button.clicked.connect(() => { cancel(); });
 
-            this.submit_button = new Gtk.Button();
+            this.submit_button = new Gtk.Button.with_label("Save");
             this.submit_button.get_style_context().add_class("suggested-action");
             this.submit_button.valign = Gtk.Align.CENTER;
             this.submit_button.clicked.connect(() => {
-                var server_instance = get_server();
+                if(server != null)
+                    update_values();
+                var server_instance = build_server();
                 submit((Models.IServer)server_instance);
             });
 
@@ -61,8 +65,31 @@ namespace ZzzServer.Widgets{
             base.pack2(button_container, false, false);
         }
 
-        protected abstract T get_server();
+        protected abstract T build_server();
+        protected virtual void update_values(){
+            var new_values = build_server();
+            var properties = ((ObjectClass)(Type.from_instance(new_values).class_ref())).list_properties();
+            var srv_obj = (Object)server;
+            var new_srv_obj = (Object)new_values;
 
+            foreach(var prop in properties){
+                string str_val;
+                int int_val;
+
+                if(prop.name != "status" && prop.name != "keep-alive"){
+                    if(prop.value_type == typeof(string)){
+                        new_srv_obj.@get(prop.name, out str_val);
+                        srv_obj.set_property(prop.name, str_val);
+                    }else if(prop.value_type == typeof(int)){
+                        new_srv_obj.@get(prop.name, out int_val);
+                        srv_obj.set_property(prop.name, int_val);
+                    }
+                    
+                }
+            }
+        }
+
+        protected abstract void edit(T server);
     }
 
 

@@ -8,6 +8,7 @@ namespace ZzzServer{
     public class Client : Gtk.Application{
 
         private ListStore servers;//Gee.List<Models.IServer> servers;
+        private Utility.Factories.ServerFormFactory form_factory;
 
         public Client(){
             Object(
@@ -26,13 +27,24 @@ namespace ZzzServer{
             var header = new HeaderBar();
             main_window.set_titlebar(header);
 
-            //Primary view
-            var prim_view = new Widgets.Main.DefaultMainView(this.servers);
-
             //create historystack
             var history = new HistoryStack();
 
             header.back_button = history.back_button;
+
+            //Primary view
+            var prim_view = new Widgets.Main.DefaultMainView(this.servers);
+
+            prim_view.server_clicked.connect((server) => {
+            var form = form_factory.edit(server);
+                form.cancel.connect(history.back);
+                form.submit.connect((srv) => {
+                    server = srv;
+                    history.back();
+                });
+                history.sub_page = form;
+            });
+
 
             var welcome = new Widgets.Welcome();
 
@@ -63,10 +75,14 @@ namespace ZzzServer{
 
         construct{
             this.servers = new ListStore(typeof(Models.IServer));//new Gee.ArrayList<Models.IServer>();
+            this.form_factory = configure_serverform_handler();
         }
 
-        protected void configure_css(){
-            
+        protected Utility.Factories.ServerFormFactory configure_serverform_handler(){
+            var srv_form_factory = new Utility.Factories.ServerFormFactory();
+            srv_form_factory.register_form<Widgets.WakeOnLanServerForm>();
+
+            return srv_form_factory;
         }
 
         public static int main (string[] args){

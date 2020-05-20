@@ -8,8 +8,6 @@ namespace ZzzServer.Widgets{
         public signal void submit(Models.IServer server);
         public signal void cancel();
 
-        public abstract T server { set; }
-
     }
 
 }

@@ -37,6 +37,7 @@ namespace ZzzServer.Widgets{
             set{
                 if(value != this._base_page){
                     base.add(value);
+                    message("adding");
                     if(this._base_page != null){
                         if(visible_child == this._base_page){
                             base.transition_type = Gtk.StackTransitionType.CROSSFADE;
@@ -46,6 +47,7 @@ namespace ZzzServer.Widgets{
                     }
                 }
                 this._base_page = value;
+                message("showing");
                 base.visible_child = value;
                 base.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             }

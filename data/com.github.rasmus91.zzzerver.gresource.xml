@@ -2,5 +2,7 @@
 <gresources>
   <gresource prefix="/com/github/rasmus91/zzzerver">
     <file alias="Application.css" compressed="true">Application.css</file>
+    <file alias="heart-symbolic" compressed="true">icons/heart-symbolic.svg</file>
+    <file alias="heart-crossed-symbolic" compressed="true">icons/heart-crossed-symbolic.svg</file>
   </gresource>
 </gresources>
